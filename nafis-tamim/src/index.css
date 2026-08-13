@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Ballpoint-ink blue — primary accent */
+  --color-brand-50: #eef1fc;
+  --color-brand-100: #dde3f9;
+  --color-brand-400: #5b76de;
+  --color-brand-500: #3d5cd6;
+  --color-brand-600: #2f4bc4;
+  --color-brand-700: #253ba0;
+  --color-brand-900: #1a2968;
+
+  /* Composition-notebook ink — header / dark surfaces */
+  --color-ink-700: #2b2e38;
+  --color-ink-800: #1d1f27;
+  --color-ink-900: #14161c;
+
+  /* Cool paper background */
+  --color-paper-50: #f6f7f9;
+  --color-paper-100: #eef0f3;
+
+  /* Status — fixed, never themed */
+  --color-status-good: #0ca30c;
+  --color-status-warning: #fab219;
+  --color-status-critical: #d03b3b;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper-50);
+  color: var(--color-ink-900);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.notebook-texture {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.09) 1px, transparent 0);
+  background-size: 7px 7px;
+}
