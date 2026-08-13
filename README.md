@@ -1,5 +1,7 @@
 # Student Homework Tracker
 
+**Live:** https://nafis-tamim.vercel.app/
+
 A simple, public homework activity tracker for two students (Nafis and Tamim), built with the MERN stack.
 
 - **Public visitors** can browse recorded dates and view each student's status and the instructor's note — no login required, no calendar UI, only dates that have actual records.
