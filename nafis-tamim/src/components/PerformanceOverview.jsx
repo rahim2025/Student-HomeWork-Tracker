@@ -17,18 +17,24 @@ const computeRate = (records, key) => {
   return { completed, total, rate };
 };
 
-const StudentMeter = ({ name, records, field }) => {
-  const { completed, total, rate } = computeRate(records, field);
+const StudentMeter = ({ name, completed, total, rate, isTop }) => {
   const fillColor = rateColor(rate);
 
   return (
     <div>
-      <div className="flex items-baseline justify-between">
-        <p className="text-sm font-medium text-slate-800">{name}</p>
-        <p className="font-display text-lg font-bold text-slate-900">{rate}%</p>
+      <div className="flex items-baseline justify-between gap-1">
+        <p className="flex items-center gap-1 text-xs font-medium text-slate-800">
+          {name}
+          {isTop && total > 0 && (
+            <span className="text-[10px]" title="Leading this period" aria-label="Leading this period">
+              🏆
+            </span>
+          )}
+        </p>
+        <p className="font-display text-sm font-bold text-slate-900">{rate}%</p>
       </div>
       <div
-        className="mt-1.5 h-2.5 w-full overflow-hidden rounded-full bg-slate-200"
+        className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200"
         role="progressbar"
         aria-valuenow={rate}
         aria-valuemin={0}
@@ -40,35 +46,45 @@ const StudentMeter = ({ name, records, field }) => {
           style={{ width: `${rate}%`, backgroundColor: fillColor }}
         />
       </div>
-      <p className="mt-1 text-xs text-slate-500">
-        {completed} of {total} day{total === 1 ? "" : "s"} completed
+      <p className="mt-1 text-[10px] text-slate-500">
+        {completed}/{total} day{total === 1 ? "" : "s"}
       </p>
     </div>
   );
 };
 
 const PerformanceOverview = ({ records, monthLabel }) => {
+  // Sort so whichever student is currently performing better appears first.
+  const students = [
+    { name: "Nafis", field: "nafisCompleted" },
+    { name: "Tamim", field: "tamimCompleted" },
+  ]
+    .map((s) => ({ ...s, ...computeRate(records, s.field) }))
+    .sort((a, b) => b.rate - a.rate);
+  const isTie = students.length > 1 && students[0].rate === students[1].rate;
+
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-      <h2 className="font-display text-base font-semibold text-slate-800">
+    <section className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+      <h2 className="font-display text-sm font-semibold text-slate-800">
         Student Performance
       </h2>
-      <p className="mt-1 text-xs text-slate-500">
-        {monthLabel ? `Completion rate for ${monthLabel}.` : "Completion rate across all recorded days."}
+      <p className="mt-0.5 text-[11px] text-slate-500">
+        {monthLabel ? `Completion for ${monthLabel}.` : "Completion across all recorded days."}
       </p>
 
       {records.length === 0 ? (
-        <p className="mt-4 text-sm text-slate-500">
+        <p className="mt-3 text-xs text-slate-500">
           No records for {monthLabel || "this period"} yet.
         </p>
       ) : (
         <>
-          <div className="mt-4 space-y-4">
-            <StudentMeter name="Nafis" records={records} field="nafisCompleted" />
-            <StudentMeter name="Tamim" records={records} field="tamimCompleted" />
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {students.map((s) => (
+              <StudentMeter key={s.name} {...s} isTop={!isTie && s.rate === students[0].rate} />
+            ))}
           </div>
 
-          <p className="mt-4 border-t border-slate-100 pt-3 text-[11px] leading-relaxed text-slate-500">
+          <p className="mt-3 border-t border-slate-100 pt-2 text-[10px] leading-relaxed text-slate-500">
             <span style={{ color: SEVERITY.good }}>●</span> 80%+&nbsp;&nbsp;
             <span style={{ color: SEVERITY.warning }}>●</span> 50–79%&nbsp;&nbsp;
             <span style={{ color: SEVERITY.critical }}>●</span> Below 50%

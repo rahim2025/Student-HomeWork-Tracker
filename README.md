@@ -109,16 +109,5 @@ Start the dev server:
 npm run dev
 ```
 
-The app runs at `http://localhost:5173`.
 
-### 3. Use it
 
-- Visit `http://localhost:5173/` — public view, empty until records exist.
-- Visit `http://localhost:5173/admin/login` and sign in with the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set before seeding.
-- Create a few homework records from `/admin` — they'll immediately show up on the public homepage, newest first.
-
-## Notes
-
-- There is intentionally no admin/parent/student registration — the only administrator account is created once via `npm run seed-admin`.
-- `.env` files are gitignored in both `server/` and `client/`; only `.env.example` should be committed.
-- Before deploying, generate a real `JWT_SECRET` (e.g. `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`) and set a strong `ADMIN_PASSWORD`.

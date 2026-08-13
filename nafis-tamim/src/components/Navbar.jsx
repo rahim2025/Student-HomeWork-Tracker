@@ -12,15 +12,16 @@ const Navbar = ({ variant = "public" }) => {
 
   return (
     <header className="notebook-texture bg-ink-900">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-3 py-3 sm:px-6 sm:py-4">
         <Link
           to="/"
-          className="font-display flex items-center gap-2 text-lg font-semibold tracking-tight text-white"
+          className="font-display flex items-center gap-2 text-base font-semibold tracking-tight text-white sm:text-lg"
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-500 text-sm">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-brand-500 text-sm">
             📘
           </span>
-          Student Homework Tracker
+          <span className="hidden sm:inline">Student Homework Tracker</span>
+          <span className="sm:hidden">HW Tracker</span>
         </Link>
 
         {variant === "admin" ? (

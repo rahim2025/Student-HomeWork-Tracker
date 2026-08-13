@@ -38,18 +38,20 @@ const Home = () => {
     <div className="min-h-screen bg-paper-50">
       <Navbar variant="public" />
 
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+      <main className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-10">
         <div className="text-center">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">
             Student Homework Tracker
           </h1>
-          <p className="mt-2 text-slate-600">Homework activity for Nafis and Tamim</p>
+          <p className="mt-2 text-sm text-slate-600 sm:text-base">
+            Homework activity for Nafis and Tamim
+          </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_18rem]">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:gap-6 lg:grid-cols-[1fr_18rem]">
           <section className="order-2 lg:order-1">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-base font-semibold text-slate-800">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2.5">
+              <h2 className="font-display text-sm font-semibold text-slate-800 sm:text-base">
                 Available Records
               </h2>
               <MonthSwitcher month={month} onChange={setMonth} />
@@ -68,7 +70,7 @@ const Home = () => {
             )}
 
             {!loading && !error && monthRecords.length > 0 && (
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              <div className="grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-3">
                 {monthRecords.map((record) => (
                   <RecordCard key={record.date} record={record} />
                 ))}
