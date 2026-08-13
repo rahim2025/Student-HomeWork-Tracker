@@ -20,8 +20,7 @@ const Navbar = ({ variant = "public" }) => {
           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-brand-500 text-sm">
             📘
           </span>
-          <span className="hidden sm:inline">Student Homework Tracker</span>
-          <span className="sm:hidden">HW Tracker</span>
+          Nafis &amp; Tamim
         </Link>
 
         {variant === "admin" ? (

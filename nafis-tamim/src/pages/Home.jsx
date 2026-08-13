@@ -40,11 +40,14 @@ const Home = () => {
 
       <main className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-10">
         <div className="text-center">
-          <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Student Homework Tracker
+          <p className="font-display text-brand-600 text-xs font-semibold uppercase tracking-[0.2em] sm:text-sm">
+            Homework Tracker
+          </p>
+          <h1 className="font-display mt-1 text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            Nafis &amp; Tamim
           </h1>
           <p className="mt-2 text-sm text-slate-600 sm:text-base">
-            Homework activity for Nafis and Tamim
+            Daily homework activity and notes
           </p>
         </div>
 
