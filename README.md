@@ -2,10 +2,15 @@
 
 **Live:** https://nafis-tamim.vercel.app/
 
-A simple, public homework activity tracker for two students (Nafis and Tamim), built with the MERN stack.
+## Background
+
+I tutor two students, Nafis and Tamim, and their homework completion was inconsistent — some days done, some days skipped — with no easy way to keep their parents in the loop. Calling or messaging each parent individually after every single session wasn't realistic to keep up day after day, and even when I tried, it often didn't work out — the parents aren't always home or reachable at the time, so a missed call just meant another day where they had no idea whether homework actually got done.
+
+So I built this site to close that gap. After each session I log that day's record — whether each student completed their homework, plus a short note — and the site automatically emails both parents right away, so they're informed the same day without me having to reach them individually. On top of that, every past record lives in one public page that's available any time, so parents (or the students) can check the full history whenever they want instead of depending on updates that might get missed.
 
 - **Public visitors** can browse recorded dates and view each student's status and the instructor's note — no login required, no calendar UI, only dates that have actual records.
 - **The instructor (single administrator)** logs in to create, update, and delete daily records.
+- **Parents are notified automatically** — creating a new record sends an email (with the date, each student's status and note) to everyone listed in `PARENT_EMAILS`, so nothing depends on the instructor remembering to message them separately.
 
 ## Tech Stack
 
@@ -73,7 +78,13 @@ MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_long_random_secret
 ADMIN_EMAIL=your_admin_email
 ADMIN_PASSWORD=your_admin_password
+FRONTEND_URL=https://your-deployed-frontend.example.com
+EMAIL_USER=your_gmail_address@gmail.com
+EMAIL_APP_PASSWORD=your_16_char_app_password
+PARENT_EMAILS=parent1@example.com,parent2@example.com
 ```
+
+`EMAIL_USER`/`EMAIL_APP_PASSWORD`/`PARENT_EMAILS` are optional — if any is missing, the app just skips sending notifications. When set, every time the admin creates a new homework record, an email is sent to all `PARENT_EMAILS` with the date, each student's completion status and note, and a prompt to visit the site for the full picture. `EMAIL_APP_PASSWORD` must be a [Gmail App Password](https://myaccount.google.com/apppasswords), not your regular Gmail password (requires 2-Step Verification enabled on the Google account).
 
 Create the (single) admin account:
 

@@ -7,13 +7,20 @@ const homeworkRoutes = require("./routes/homeworkRoutes");
 
 const app = express();
 
-connectDB();
-
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/homework", homeworkRoutes);
+const ensureDbConnected = async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(503).json({ message: "Database unavailable, please try again." });
+  }
+};
+
+app.use("/api/auth", ensureDbConnected, authRoutes);
+app.use("/api/homework", ensureDbConnected, homeworkRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });

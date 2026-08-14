@@ -1,4 +1,5 @@
 const HomeworkRecord = require("../models/HomeworkRecord");
+const { notifyNewRecord } = require("../services/notificationService");
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -51,6 +52,10 @@ const createRecord = async (req, res) => {
     });
 
     res.status(201).json(record);
+
+    notifyNewRecord(record).catch((error) => {
+      console.error("Failed to send new-record notification email:", error.message);
+    });
   } catch (error) {
     if (error.code === 11000) {
       return res.status(409).json({ message: "A record for this date already exists." });
